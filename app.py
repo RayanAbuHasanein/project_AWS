@@ -4,7 +4,7 @@ import os
 from flask import json
 import pymysql
 from werkzeug.utils import secure_filename
-from flask_mysqldb import MySQL
+# from flask_mysqldb import MySQL
 import mysql.connector
 from array import *
 
