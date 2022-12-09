@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Cloud project</title>
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,600,700"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"
+    />
+    <!-- Stylesheets
+    ================================================== -->
+    <!-- Bootstrap core CSS -->
+    <link href="/staticFiles/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/staticFiles/main.css" />
+  </head>
+  <body>
+    <header id="masthead" class="site-header">
+      <nav id="primary-navigation" class="site-navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="site-title"><span>Cloud</span>Project</a>
+          </div>
+          <!-- /.navbar-header -->
+          <div class="collapse navbar-collapse" id="agency-navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active">
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/uploading">Upload Photo</a>
+              </li>
+              <li><a href="/search">Search</a></li>
+              <li><a href="/showKeys">Show Keys</a></li>
+              <li><a href="/showMemoryCache">Show Memory Cache</a></li>
+              <li><a href="/managerApp">Manager App</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- /.site-navigation -->
+    </header>
+    <!-- /#mastheaed -->
+
+    <div id="hero" class="hero overlay subpage-hero contact-hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Manager App</h1>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Manager App</li>
+          </ol>
+        </div>
+        <!-- /.hero-text -->
+      </div>
+      <!-- /.hero-content -->
+    </div>
+    <!-- /.hero -->
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+<script>
+var xValues = ["miss rate", "hit rate", "number of items", "total size", "number of requests"];
+var yValues = [55, 49, 44, 24, 25];
+var barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "memcache pool"
+    }
+  }
+});
+</script>
+<style id="compiled-css" type="text/css">
+
+  .sub1, .sub2 { display: none; }
+  :checked ~ .sub1, :checked ~ .sub2 {
+     display: block;
+     margin-left: 40px;
+  }
+  
+  
+        </style> 
+<form> 
+  <div> 
+    <h3>Select option for resizing memcache :</h3>
+   <input type="radio" name="level0" value="A" id="A">
+   <label for="A">Manual mode</label> 
+   <input type="number" id="points" name="points" step="1">
+   <input type="submit">
+  </div> 
+  <div> 
+   <input type="radio" name="level0" value="B" id="B"> 
+   <label for="B">Automatic</label> 
+   <br><br>
+  </div> 
+  <div>
+    <label for="A">delete EC2</label>
+    <input type="submit" value="delete">
+    <br><br>
+    <label for="A">delete S3</label>
+    <input type="submit" value="delete">
+  </div>
+  </div> 
+ </form> 
+</body>
+</html>
