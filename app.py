@@ -2,7 +2,7 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 import urllib.request
 import os
 from flask import json
-import pymysql
+# import pymysql
 from werkzeug.utils import secure_filename
 # from flask_mysqldb import MySQL
 import mysql.connector
@@ -16,7 +16,7 @@ memcache = {}
 
 # array1 = array []
 
-db = pymysql.connect(host='database-2.cbnbjo3bjf2p.us-east-1.rds.amazonaws.com',
+db = mysql.connector.connect(host='database-3.cbnbjo3bjf2p.us-east-1.rds.amazonaws.com',
                             user='admin',
                             password='cloud!!11',
                             database='DB',
@@ -59,13 +59,13 @@ def get():
         # cursor.execute(sql,len)
         # db.commit()
 
-    else:
-        sql = "SELECT photo FROM cloud WHERE keyy = (%s)"
+     else:
+        sql = "SELECT photo FROM photo_key WHERE keyy = (%s)"
         cursor.execute(sql,key)
         db.commit()
         value = cursor.fetchall()
         memcache[key]= value
-        count = 0 
+        count = 0
         # len=len+1
         miss=miss+1
         len=hit+miss
@@ -80,7 +80,7 @@ def get():
 
 @app.route('/list', methods=['POST'])
 def list():
-    sql = "SELECT keyy FROM cloud"
+    sql = "SELECT keyy FROM photo_key"
     cursor.execute(sql)
     value = cursor.fetchall()
     return render_template("ShowKeys.html", value=value)
@@ -89,7 +89,7 @@ def list():
 
 @app.route('/clear', methods=['POST'])
 def clear():
-    sql = "DELETE FROM cloud"
+    sql = "DELETE FROM photo_key"
     cursor.execute(sql)
     db.commit()
     return render_template("ShowKeys.html")
@@ -102,8 +102,8 @@ def upload():
     key = request.form.get('key')
     file = request.files['file']
     filename = secure_filename(file.filename)
-    file.save(os.path.join("C:/Users/HP/Desktop/cloud/static",filename))
-    sql = "INSERT INTO cloud (photo,keyy) VALUES (%s,%s)"
+    #file.save(os.path.join("C:/Users/HP/Desktop/cloud/static",filename))
+    sql = "INSERT INTO photo_key (photo,keyy) VALUES (%s,%s)"
     val = (filename, key)
     cursor.execute(sql,val)
     db.commit()
@@ -119,7 +119,7 @@ def upload():
 def drop():
     value = "Record(s) deleted "
     key = request.form.get('key')
-    sql = "DELETE FROM cloud WHERE keyy = (%s)"
+    sql = "DELETE FROM photo_key WHERE keyy = (%s)"
     cursor.execute(sql,key)
     db.commit()
     return render_template("UploadPhoto.html", value= value)
@@ -169,5 +169,9 @@ def uploading():
 @app.route("/showMemoryCache")
 def showMemoryCache():
     return render_template("showMemoryCache.html")
+  
+@app.route("/managerApp")
+def showMemoryCache():
+    return render_template("managerApp.html")
 if __name__ == "__main__":
-    app.run()
+    app.run('0.0.0.0',5000,debug=True)
